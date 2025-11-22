@@ -1,0 +1,7 @@
+.env
+venv
+dist
+build
+work
+__pycache_
+.bak

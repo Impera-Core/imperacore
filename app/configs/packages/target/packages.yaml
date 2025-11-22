@@ -1,0 +1,20 @@
+packages:
+- make
+- gcc
+- curl
+- wget
+- git
+- glib2
+- glibc
+- clang
+- zlib
+- cmake
+- python
+- python-pip
+- pkgconf
+- apk-tools
+- base
+- base-devel
+- linux
+- linux-firmware
+- linux-headers

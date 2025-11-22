@@ -1,0 +1,43 @@
+fhs:
+  directories:
+  - /bin
+  - /boot
+  - /dev
+  - /etc
+  - /home
+  - /lib
+  - /lib64
+  - /media
+  - /mnt
+  - /opt
+  - /proc
+  - /root
+  - /run
+  - /sbin
+  - /srv
+  - /sys
+  - /tmp
+  - /usr
+  - /usr/bin
+  - /usr/lib
+  - /usr/lib64
+  - /usr/local
+  - /usr/local/bin
+  - /usr/local/lib
+  - /usr/local/lib64
+  - /usr/sbin
+  - /var
+  - /var/cache
+  - /var/lib
+  - /var/log
+  - /var/run
+  - /var/tmp
+
+  files:
+  - path: /etc/hostname
+    content: "metanexuz\n"
+
+  - path: /etc/motd
+    content: "Welcome to the MetaNexuz FHS RootFS\n"
+
+  symlinks: []
