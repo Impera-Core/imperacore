@@ -1,0 +1,270 @@
+[DEBUG] | Gesamte geladene Konfiguration: {'workenvironment': [{'paths': {'development_enviroment': '/mnt/nexuzfs/', 'work_dir': '/mnt/nexuzfs/work', 'build_dir': '/mnt/nexuzfs/build', 'rootfs_dir': '/mnt/nexuzfs/work/rootfs', 'cache_dir': '/mnt/nexuzfs/work/cache', 'download_dir': '/mnt/nexuzfs/work/downloads', 'pacman_cache': '/mnt/nexuzfs/work/rootfs/var/cache/pacman', 'image_dir': '/mnt/nexuzfs/work/images', 'logs_dir': '/mnt/nexuzfs/work/logs', 'tmp_dir': '/mnt/nexuzfs/work/tmp'}}]}
+[SUCCESS] | Pfad 'development_enviroment' geladen: /mnt/nexuzfs/
+[SUCCESS] | Pfad 'work_dir' geladen: /mnt/nexuzfs/work
+[SUCCESS] | Pfad 'build_dir' geladen: /mnt/nexuzfs/build
+[SUCCESS] | Pfad 'rootfs_dir' geladen: /mnt/nexuzfs/work/rootfs
+[SUCCESS] | Pfad 'cache_dir' geladen: /mnt/nexuzfs/work/cache
+[SUCCESS] | Pfad 'download_dir' geladen: /mnt/nexuzfs/work/downloads
+[SUCCESS] | Pfad 'pacman_cache' geladen: /mnt/nexuzfs/work/rootfs/var/cache/pacman
+[SUCCESS] | Pfad 'image_dir' geladen: /mnt/nexuzfs/work/images
+[SUCCESS] | Pfad 'logs_dir' geladen: /mnt/nexuzfs/work/logs
+[SUCCESS] | Pfad 'tmp_dir' geladen: /mnt/nexuzfs/work/tmp
+[CREATE] | 🛠️ [*] Erstelle Verzeichnisse...
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/bin
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/boot
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/dev
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/etc
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/home
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/lib
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/lib64
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/media
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/mnt
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/opt
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/proc
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/root
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/run
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/sbin
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/srv
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/sys
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/tmp
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/usr
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/usr/bin
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/usr/lib
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/usr/lib64
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/usr/local
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/usr/local/bin
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/usr/local/lib
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/usr/local/lib64
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/usr/sbin
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/var
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/var/cache
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/var/lib
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/var/lib/pacman
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/var/lib/pacman/sync
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/var/log
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/var/run
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/var/tmp
+[INFO] | Pacman DB-Verzeichnis sichergestellt: /mnt/nexuzfs/work/rootfs/var/lib/pacman/sync
+[CREATE] | 🛠️ [*] Erstelle Dateien...
+[DEBUG] | Datei erstellt mit Inhalt: /mnt/nexuzfs/work/rootfs/etc/hostname
+[DEBUG] | Datei erstellt mit Inhalt: /mnt/nexuzfs/work/rootfs/etc/motd
+[CREATE] | 🛠️ [*] Erstelle Symlinks...
+[SUCCESS] | [✓] FHS RootFS erfolgreich aufgebaut!
+[SUCCESS] | [✓] RootFS erstellt für Architektur x86_64 in /mnt/nexuzfs/work/rootfs
+[INFO] | Versuche Download von https://busybox.net/downloads/busybox-1.36.1.tar.bz2 ...
+[SUCCESS] | Download abgeschlossen: /mnt/nexuzfs/work/download/busybox-1.36.1.tar.bz2
+[INFO] | Entpacke /mnt/nexuzfs/work/download/busybox-1.36.1.tar.bz2 nach /mnt/nexuzfs/work ...
+[SUCCESS] | Entpackt: busybox-1.36.1.tar.bz2 → /mnt/nexuzfs/work
+[SUCCESS] | ✔ 'make defconfig' erfolgreich abgeschlossen.
+[SUCCESS] | BusyBox .config gepatcht: ['CONFIG_TC', 'CONFIG_STATIC', 'CONFIG_CROSS_COMPILER_PREFIX']
+[SUCCESS] | ✔ 'make oldconfig KCONFIG_ALLCONFIG=/dev/null' erfolgreich abgeschlossen.
+[SUCCESS] | ✔ 'make -j8' erfolgreich abgeschlossen.
+[SUCCESS] | ✔ 'make CONFIG_PREFIX=/mnt/nexuzfs/work/rootfs install' erfolgreich abgeschlossen.
+[SUCCESS] | [SUCCESS] BusyBox Symlinks erstellt
+[SUCCESS] | ✅ BusyBox 1.36.1 erfolgreich installiert in /mnt/nexuzfs/work/rootfs
+[SUCCESS] | [SUCCESS] BusyBox Symlinks erstellt
+[SUCCESS] | BusyBox gebaut und direkt ins OverlayFS installiert
+[DEBUG] | Gesamte geladene Konfiguration: {'workenvironment': [{'paths': {'development_enviroment': '/mnt/nexuzfs/', 'work_dir': '/mnt/nexuzfs/work', 'build_dir': '/mnt/nexuzfs/build', 'rootfs_dir': '/mnt/nexuzfs/work/rootfs', 'cache_dir': '/mnt/nexuzfs/work/cache', 'download_dir': '/mnt/nexuzfs/work/downloads', 'pacman_cache': '/mnt/nexuzfs/work/rootfs/var/cache/pacman', 'image_dir': '/mnt/nexuzfs/work/images', 'logs_dir': '/mnt/nexuzfs/work/logs', 'tmp_dir': '/mnt/nexuzfs/work/tmp'}}]}
+[SUCCESS] | Pfad 'development_enviroment' geladen: /mnt/nexuzfs/
+[SUCCESS] | Pfad 'work_dir' geladen: /mnt/nexuzfs/work
+[SUCCESS] | Pfad 'build_dir' geladen: /mnt/nexuzfs/build
+[SUCCESS] | Pfad 'rootfs_dir' geladen: /mnt/nexuzfs/work/rootfs
+[SUCCESS] | Pfad 'cache_dir' geladen: /mnt/nexuzfs/work/cache
+[SUCCESS] | Pfad 'download_dir' geladen: /mnt/nexuzfs/work/downloads
+[SUCCESS] | Pfad 'pacman_cache' geladen: /mnt/nexuzfs/work/rootfs/var/cache/pacman
+[SUCCESS] | Pfad 'image_dir' geladen: /mnt/nexuzfs/work/images
+[SUCCESS] | Pfad 'logs_dir' geladen: /mnt/nexuzfs/work/logs
+[SUCCESS] | Pfad 'tmp_dir' geladen: /mnt/nexuzfs/work/tmp
+[CREATE] | 🛠️ [*] Erstelle Verzeichnisse...
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/bin
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/boot
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/dev
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/etc
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/home
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/lib
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/lib64
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/media
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/mnt
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/opt
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/proc
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/root
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/run
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/sbin
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/srv
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/sys
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/tmp
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/usr
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/usr/bin
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/usr/lib
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/usr/lib64
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/usr/local
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/usr/local/bin
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/usr/local/lib
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/usr/local/lib64
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/usr/sbin
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/var
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/var/cache
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/var/lib
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/var/lib/pacman
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/var/lib/pacman/sync
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/var/log
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/var/run
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/var/tmp
+[INFO] | Pacman DB-Verzeichnis sichergestellt: /mnt/nexuzfs/work/rootfs/var/lib/pacman/sync
+[CREATE] | 🛠️ [*] Erstelle Dateien...
+[DEBUG] | Datei erstellt mit Inhalt: /mnt/nexuzfs/work/rootfs/etc/hostname
+[DEBUG] | Datei erstellt mit Inhalt: /mnt/nexuzfs/work/rootfs/etc/motd
+[CREATE] | 🛠️ [*] Erstelle Symlinks...
+[SUCCESS] | [✓] FHS RootFS erfolgreich aufgebaut!
+[SUCCESS] | [✓] RootFS erstellt für Architektur x86_64 in /mnt/nexuzfs/work/rootfs
+[INFO] | Versuche Download von https://busybox.net/downloads/busybox-1.36.1.tar.bz2 ...
+[SUCCESS] | Download abgeschlossen: /mnt/nexuzfs/work/download/busybox-1.36.1.tar.bz2
+[INFO] | Entpacke /mnt/nexuzfs/work/download/busybox-1.36.1.tar.bz2 nach /mnt/nexuzfs/work ...
+[SUCCESS] | Entpackt: busybox-1.36.1.tar.bz2 → /mnt/nexuzfs/work
+[SUCCESS] | ✔ 'make defconfig' erfolgreich abgeschlossen.
+[SUCCESS] | BusyBox .config gepatcht: ['CONFIG_TC', 'CONFIG_STATIC', 'CONFIG_CROSS_COMPILER_PREFIX']
+[SUCCESS] | ✔ 'make oldconfig KCONFIG_ALLCONFIG=/dev/null' erfolgreich abgeschlossen.
+[SUCCESS] | ✔ 'make -j8' erfolgreich abgeschlossen.
+[SUCCESS] | ✔ 'make CONFIG_PREFIX=/mnt/nexuzfs/work/rootfs install' erfolgreich abgeschlossen.
+[SUCCESS] | [SUCCESS] BusyBox Symlinks erstellt
+[SUCCESS] | ✅ BusyBox 1.36.1 erfolgreich installiert in /mnt/nexuzfs/work/rootfs
+[SUCCESS] | [SUCCESS] BusyBox Symlinks erstellt
+[SUCCESS] | BusyBox gebaut und direkt ins OverlayFS installiert
+[DEBUG] | Gesamte geladene Konfiguration: {'workenvironment': [{'paths': {'development_enviroment': '/mnt/nexuzfs/', 'work_dir': '/mnt/nexuzfs/work', 'build_dir': '/mnt/nexuzfs/build', 'rootfs_dir': '/mnt/nexuzfs/work/rootfs', 'cache_dir': '/mnt/nexuzfs/work/cache', 'download_dir': '/mnt/nexuzfs/work/downloads', 'pacman_cache': '/mnt/nexuzfs/work/rootfs/var/cache/pacman', 'image_dir': '/mnt/nexuzfs/work/images', 'logs_dir': '/mnt/nexuzfs/work/logs', 'tmp_dir': '/mnt/nexuzfs/work/tmp'}}]}
+[SUCCESS] | Pfad 'development_enviroment' geladen: /mnt/nexuzfs/
+[SUCCESS] | Pfad 'work_dir' geladen: /mnt/nexuzfs/work
+[SUCCESS] | Pfad 'build_dir' geladen: /mnt/nexuzfs/build
+[SUCCESS] | Pfad 'rootfs_dir' geladen: /mnt/nexuzfs/work/rootfs
+[SUCCESS] | Pfad 'cache_dir' geladen: /mnt/nexuzfs/work/cache
+[SUCCESS] | Pfad 'download_dir' geladen: /mnt/nexuzfs/work/downloads
+[SUCCESS] | Pfad 'pacman_cache' geladen: /mnt/nexuzfs/work/rootfs/var/cache/pacman
+[SUCCESS] | Pfad 'image_dir' geladen: /mnt/nexuzfs/work/images
+[SUCCESS] | Pfad 'logs_dir' geladen: /mnt/nexuzfs/work/logs
+[SUCCESS] | Pfad 'tmp_dir' geladen: /mnt/nexuzfs/work/tmp
+[CREATE] | 🛠️ [*] Erstelle Verzeichnisse...
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/bin
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/boot
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/dev
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/etc
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/etc/pacman.d
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/home
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/lib
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/lib64
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/media
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/mnt
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/opt
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/proc
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/root
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/run
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/sbin
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/srv
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/sys
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/tmp
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/usr
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/usr/bin
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/usr/lib
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/usr/lib64
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/usr/local
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/usr/local/bin
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/usr/local/lib
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/usr/local/lib64
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/usr/sbin
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/usr/share
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/usr/share/pacman
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/var
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/var/cache
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/var/lib
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/var/lib/pacman
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/var/lib/pacman/sync
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/var/log
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/var/run
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/var/tmp
+[INFO] | Pacman DB-Verzeichnis sichergestellt: /mnt/nexuzfs/work/rootfs/var/lib/pacman/sync
+[CREATE] | 🛠️ [*] Erstelle Dateien...
+[DEBUG] | Datei erstellt mit Inhalt: /mnt/nexuzfs/work/rootfs/etc/hostname
+[DEBUG] | Datei erstellt mit Inhalt: /mnt/nexuzfs/work/rootfs/etc/motd
+[CREATE] | 🛠️ [*] Erstelle Symlinks...
+[SUCCESS] | [✓] FHS RootFS erfolgreich aufgebaut!
+[SUCCESS] | [✓] RootFS erstellt für Architektur x86_64 in /mnt/nexuzfs/work/rootfs
+[INFO] | Versuche Download von https://busybox.net/downloads/busybox-1.36.1.tar.bz2 ...
+[SUCCESS] | Download abgeschlossen: /mnt/nexuzfs/work/download/busybox-1.36.1.tar.bz2
+[INFO] | Entpacke /mnt/nexuzfs/work/download/busybox-1.36.1.tar.bz2 nach /mnt/nexuzfs/work ...
+[SUCCESS] | Entpackt: busybox-1.36.1.tar.bz2 → /mnt/nexuzfs/work
+[SUCCESS] | ✔ 'make defconfig' erfolgreich abgeschlossen.
+[SUCCESS] | BusyBox .config gepatcht: ['CONFIG_TC', 'CONFIG_STATIC', 'CONFIG_CROSS_COMPILER_PREFIX']
+[SUCCESS] | ✔ 'make oldconfig KCONFIG_ALLCONFIG=/dev/null' erfolgreich abgeschlossen.
+[SUCCESS] | ✔ 'make -j8' erfolgreich abgeschlossen.
+[SUCCESS] | ✔ 'make CONFIG_PREFIX=/mnt/nexuzfs/work/rootfs install' erfolgreich abgeschlossen.
+[SUCCESS] | [SUCCESS] BusyBox Symlinks erstellt
+[SUCCESS] | ✅ BusyBox 1.36.1 erfolgreich installiert in /mnt/nexuzfs/work/rootfs
+[SUCCESS] | [SUCCESS] BusyBox Symlinks erstellt
+[SUCCESS] | BusyBox gebaut und direkt ins OverlayFS installiert
+[DEBUG] | Gesamte geladene Konfiguration: {'workenvironment': [{'paths': {'development_enviroment': '/mnt/nexuzfs/', 'work_dir': '/mnt/nexuzfs/work', 'build_dir': '/mnt/nexuzfs/build', 'rootfs_dir': '/mnt/nexuzfs/work/rootfs', 'cache_dir': '/mnt/nexuzfs/work/cache', 'download_dir': '/mnt/nexuzfs/work/downloads', 'pacman_cache': '/mnt/nexuzfs/work/rootfs/var/cache/pacman', 'image_dir': '/mnt/nexuzfs/work/images', 'logs_dir': '/mnt/nexuzfs/work/logs', 'tmp_dir': '/mnt/nexuzfs/work/tmp'}}]}
+[SUCCESS] | Pfad 'development_enviroment' geladen: /mnt/nexuzfs/
+[SUCCESS] | Pfad 'work_dir' geladen: /mnt/nexuzfs/work
+[SUCCESS] | Pfad 'build_dir' geladen: /mnt/nexuzfs/build
+[SUCCESS] | Pfad 'rootfs_dir' geladen: /mnt/nexuzfs/work/rootfs
+[SUCCESS] | Pfad 'cache_dir' geladen: /mnt/nexuzfs/work/cache
+[SUCCESS] | Pfad 'download_dir' geladen: /mnt/nexuzfs/work/downloads
+[SUCCESS] | Pfad 'pacman_cache' geladen: /mnt/nexuzfs/work/rootfs/var/cache/pacman
+[SUCCESS] | Pfad 'image_dir' geladen: /mnt/nexuzfs/work/images
+[SUCCESS] | Pfad 'logs_dir' geladen: /mnt/nexuzfs/work/logs
+[SUCCESS] | Pfad 'tmp_dir' geladen: /mnt/nexuzfs/work/tmp
+[CREATE] | 🛠️ [*] Erstelle Verzeichnisse...
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/bin
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/boot
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/dev
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/etc
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/etc/pacman.d
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/home
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/lib
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/lib64
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/media
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/mnt
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/opt
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/proc
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/root
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/run
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/sbin
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/srv
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/sys
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/tmp
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/usr
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/usr/bin
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/usr/lib
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/usr/lib64
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/usr/local
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/usr/local/bin
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/usr/local/lib
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/usr/local/lib64
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/usr/sbin
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/usr/share
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/usr/share/pacman
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/var
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/var/cache
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/var/lib
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/var/lib/pacman
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/var/lib/pacman/sync
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/var/log
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/var/run
+[DEBUG] | Verzeichnis erstellt: /mnt/nexuzfs/work/rootfs/var/tmp
+[INFO] | Pacman DB-Verzeichnis sichergestellt: /mnt/nexuzfs/work/rootfs/var/lib/pacman/sync
+[CREATE] | 🛠️ [*] Erstelle Dateien...
+[DEBUG] | Datei erstellt mit Inhalt: /mnt/nexuzfs/work/rootfs/etc/hostname
+[DEBUG] | Datei erstellt mit Inhalt: /mnt/nexuzfs/work/rootfs/etc/motd
+[CREATE] | 🛠️ [*] Erstelle Symlinks...
+[SUCCESS] | [✓] FHS RootFS erfolgreich aufgebaut!
+[SUCCESS] | [✓] RootFS erstellt für Architektur x86_64 in /mnt/nexuzfs/work/rootfs
+[INFO] | Versuche Download von https://busybox.net/downloads/busybox-1.36.1.tar.bz2 ...
+[SUCCESS] | Download abgeschlossen: /mnt/nexuzfs/work/download/busybox-1.36.1.tar.bz2
+[INFO] | Entpacke /mnt/nexuzfs/work/download/busybox-1.36.1.tar.bz2 nach /mnt/nexuzfs/work ...
+[SUCCESS] | Entpackt: busybox-1.36.1.tar.bz2 → /mnt/nexuzfs/work
+[SUCCESS] | ✔ 'make defconfig' erfolgreich abgeschlossen.
+[SUCCESS] | BusyBox .config gepatcht: ['CONFIG_TC', 'CONFIG_STATIC', 'CONFIG_CROSS_COMPILER_PREFIX']
+[SUCCESS] | ✔ 'make oldconfig KCONFIG_ALLCONFIG=/dev/null' erfolgreich abgeschlossen.
+[SUCCESS] | ✔ 'make -j8' erfolgreich abgeschlossen.
+[SUCCESS] | ✔ 'make CONFIG_PREFIX=/mnt/nexuzfs/work/rootfs install' erfolgreich abgeschlossen.
+[SUCCESS] | [SUCCESS] BusyBox Symlinks erstellt
+[SUCCESS] | ✅ BusyBox 1.36.1 erfolgreich installiert in /mnt/nexuzfs/work/rootfs
+[SUCCESS] | [SUCCESS] BusyBox Symlinks erstellt
+[SUCCESS] | BusyBox gebaut und direkt ins OverlayFS installiert

@@ -1,6 +1,6 @@
 from pathlib import Path
 from modules.paths import Paths
-from utils.logger import info, debug, warning, error, success
+from utils.logger import *
 
 class Workspace:
 
@@ -12,15 +12,17 @@ class Workspace:
             self.paths.work,
             self.paths.download,
             self.paths.cache,
+            self.paths.pacman_cache,
             self.paths.rootfs,
             self.paths.images,
             self.paths.logs,
             self.paths.tmp,
+            self.paths.build
         ]
 
         for d in dirs:
             if not d.exists():
                 d.mkdir(parents=True, exist_ok=True)
-                info(f"[workspace] created: {d}")
+                added(f"[workspace] created: {d}")
 
         return self.paths

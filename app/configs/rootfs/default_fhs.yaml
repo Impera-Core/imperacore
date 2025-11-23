@@ -4,6 +4,7 @@ fhs:
   - /boot
   - /dev
   - /etc
+  - /etc/pacman.d
   - /home
   - /lib
   - /lib64
@@ -26,9 +27,13 @@ fhs:
   - /usr/local/lib
   - /usr/local/lib64
   - /usr/sbin
+  - /usr/share
+  - /usr/share/pacman
   - /var
   - /var/cache
   - /var/lib
+  - /var/lib/pacman
+  - /var/lib/pacman/sync
   - /var/log
   - /var/run
   - /var/tmp

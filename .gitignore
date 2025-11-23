@@ -5,3 +5,4 @@ build
 work
 __pycache_
 .bak
+.data

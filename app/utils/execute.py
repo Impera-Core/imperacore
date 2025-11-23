@@ -1,7 +1,7 @@
 import os
 import subprocess
 from pathlib import Path
-from module.logger import success, info, warning, error
+from utils.logger import *
 
 
 def run_command(commands: list[str], cwd: Path | None = None, env: dict | None = None, desc="Befehl ausführen", check_root=False) -> bool:

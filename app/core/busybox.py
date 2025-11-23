@@ -1,74 +1,117 @@
-from pathlib import Path
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+# core/busybox.py
+
 import os
-from utils.load import ConfigLoader
-from utils.execute import run_command
-from module.logger import info, success, error
+import json
+import multiprocessing
+from pathlib import Path
+from utils.download import download_file, extract_archive
+from utils.execute import run_command_live
+from utils.logger import *
 
-class BusyBoxBuilder2:
-    def __init__(self, config_path: str):
-        self.config = ConfigLoader.load(config_path)
-        self.version = self.config['busybox']['version']
-        self.url = self.config['busybox']['download_url'].replace("{version}", self.version)
-        self.targets = self.config['busybox'].get('targets', ['x86_64'])
-        self.build_dir = Path(self.config['busybox'].get('build_dir', 'build/busybox'))
-        self.install_dir = Path(self.config['busybox'].get('install_dir', 'build/rootfs-upper/bin'))
-        self.config_file = self.config['busybox'].get('config')
-        self.make_jobs = self.config['busybox'].get('make_jobs', 4)
+DEFAULT_PATCH = {"CONFIG_TC": "n", "CONFIG_STATIC": "y"}
 
-        self.src_dir = self.build_dir / f"busybox-{self.version}"
+class BusyBoxBuilder:
+    def __init__(self, json_path: Path, paths: dict, arch: str | None = None):
+        self.json_path = Path(json_path)
+        if not self.json_path.exists():
+            raise FileNotFoundError(f"BusyBox JSON nicht gefunden: {self.json_path}")
+        with open(self.json_path, "r", encoding="utf-8") as f:
+            self.config = json.load(f)
 
-    def prepare_dirs(self):
-        self.build_dir.mkdir(parents=True, exist_ok=True)
-        self.install_dir.mkdir(parents=True, exist_ok=True)
-        info(f"Build- und Install-Verzeichnisse vorbereitet: {self.build_dir}, {self.install_dir}")
+        self.version = self.config["version"]
+        self.urls = self.config.get("urls", [])
+        self.extra_cfg = self.config.get("extra_config", {})
+        self.config_patches = self._parse_patch_list(self.config.get("config_patch", []))
+        self.cross_compile = self.config.get("cross_compile", {})
+        self.arch = arch or self.cross_compile.get("arch", "x86_64")
+        
+        self.work_path = paths.work
+        self.downloads_path = paths.download
+        self.rootfs_path = paths.rootfs
+        # Pfade
+        self.work_dir = Path(self.work_path)
+        self.downloads_dir = Path(self.downloads_path)
+        self.rootfs_dir = Path(self.rootfs_path)
+        self.src_dir_template = self.work_path / f"busybox-{self.version}"
 
-    def download_source(self):
-        tarball = self.build_dir / f"busybox-{self.version}.tar.bz2"
-        if not tarball.exists():
-            info(f"Lade BusyBox {self.version} von {self.url}")
-            if not run_command(["wget", "-O", str(tarball), self.url], desc="BusyBox herunterladen"):
-                raise RuntimeError("Fehler beim Herunterladen von BusyBox")
+        if self.arch != "x86_64":
+            self.cross_compile.setdefault("compiler_prefix", "aarch64-linux-gnu-")
         else:
-            info(f"BusyBox-Tarball bereits vorhanden: {tarball}")
+            self.cross_compile["compiler_prefix"] = ""
 
-        # Entpacken
-        if not self.src_dir.exists():
-            info(f"Entpacke BusyBox Quellcode nach {self.src_dir}")
-            if not run_command(["tar", "xjf", str(tarball), "-C", str(self.build_dir)], desc="BusyBox entpacken"):
-                raise RuntimeError("Fehler beim Entpacken von BusyBox")
-        else:
-            info(f"Quellcode bereits vorhanden: {self.src_dir}")
+    @staticmethod
+    def _parse_patch_list(patch_list):
+        patch_dict = {}
+        for line in patch_list:
+            line = line.strip()
+            if not line or line.startswith("#"):
+                continue
+            if "=" in line:
+                key, val = line.split("=", 1)
+                patch_dict[key.strip()] = val.strip()
+        return patch_dict
 
-    def build_target(self, arch: str):
-        info(f"Starte BusyBox Build für {arch}")
-        env = os.environ.copy()
-        if arch == "aarch64":
-            env["CROSS_COMPILE"] = "aarch64-linux-gnu-"
-        elif arch == "x86_64":
-            env["CROSS_COMPILE"] = ""
+    @staticmethod
+    def _set_config_option(cfg_file: Path, key: str, value: str):
+        lines = cfg_file.read_text().splitlines()
+        for i, line in enumerate(lines):
+            if line.startswith(f"{key}="):
+                lines[i] = f"{key}={value}"
+                break
         else:
-            error(f"Unbekannte Architektur: {arch}")
+            lines.append(f"{key}={value}")
+        cfg_file.write_text("\n".join(lines) + "\n")
+
+    def _patch_config(self, busybox_src_dir: Path):
+        cfg_file = busybox_src_dir / ".config"
+        if not cfg_file.exists():
+            raise FileNotFoundError(f".config nicht gefunden in {busybox_src_dir}")
+        for key, val in {**DEFAULT_PATCH, **self.config_patches, **self.extra_cfg}.items():
+            self._set_config_option(cfg_file, key, val)
+        success(f"BusyBox .config gepatcht: {list({**DEFAULT_PATCH, **self.config_patches, **self.extra_cfg}.keys())}")
+
+    def create_symlinks(self):
+        busybox_path = self.rootfs_dir / "bin/busybox"
+        if not busybox_path.exists():
+            warning(f"BusyBox Binary nicht gefunden in {busybox_path}, Symlinks übersprungen")
             return
+        sbin_init = self.rootfs_dir / "sbin/init"
+        sh_link = self.rootfs_dir / "bin/sh"
+        sbin_init.parent.mkdir(parents=True, exist_ok=True)
+        if not sbin_init.exists():
+            sbin_init.symlink_to("../bin/busybox")
+        if not sh_link.exists():
+            sh_link.symlink_to("busybox")
+        success("[SUCCESS] BusyBox Symlinks erstellt")
 
-        # Konfiguration kopieren falls vorhanden
-        if self.config_file and Path(self.config_file).exists():
-            run_command(["cp", self.config_file, str(self.src_dir / ".config")], desc="BusyBox .config kopieren")
-        else:
-            info("Keine custom .config angegeben, Default-Konfiguration wird verwendet")
+    def build(self):
+        self.downloads_dir.mkdir(parents=True, exist_ok=True)
+        self.work_dir.mkdir(parents=True, exist_ok=True)
+        self.rootfs_dir.mkdir(parents=True, exist_ok=True)
 
-        # Build
-        if not run_command(["make", "oldconfig"], cwd=self.src_dir, env=env, desc=f"BusyBox oldconfig für {arch}"):
-            raise RuntimeError(f"Fehler bei oldconfig für {arch}")
-        if not run_command(["make", f"-j{self.make_jobs}"], cwd=self.src_dir, env=env, desc=f"BusyBox bauen für {arch}"):
-            raise RuntimeError(f"Fehler beim Kompilieren von BusyBox für {arch}")
-        if not run_command(["make", f"CONFIG_PREFIX={self.install_dir}", "install"], cwd=self.src_dir, env=env,
-                           desc=f"BusyBox installieren für {arch}"):
-            raise RuntimeError(f"Fehler beim Installieren von BusyBox für {arch}")
+        tarball = download_file(self.urls, self.downloads_path)
+        extracted_dir = extract_archive(tarball, self.work_path)
+        busybox_src_dir = Path(self.src_dir_template).with_name(f"busybox-{self.version}")
 
-        success(f"BusyBox Build für {arch} abgeschlossen")
+        scripts_dir = busybox_src_dir / "scripts"
+        if scripts_dir.exists():
+            for root, dirs, files in os.walk(scripts_dir):
+                for f in files:
+                    file_path = Path(root) / f
+                    file_path.chmod(file_path.stat().st_mode | 0o111)
 
-    def build_all(self):
-        self.prepare_dirs()
-        self.download_source()
-        for arch in self.targets:
-            self.build_target(arch)
+        env = os.environ.copy()
+        env["ARCH"] = self.arch
+        env["CROSS_COMPILE"] = self.cross_compile.get("compiler_prefix", "")
+        env["CFLAGS"] = self.cross_compile.get("cflags", "")
+        env["LDFLAGS"] = self.cross_compile.get("ldflags", "")
+
+        run_command_live(["make", "defconfig"], cwd=busybox_src_dir, env=env, desc="BusyBox defconfig")
+        self._patch_config(busybox_src_dir)
+        run_command_live(["make", "oldconfig", "KCONFIG_ALLCONFIG=/dev/null"], cwd=busybox_src_dir, env=env, desc="BusyBox oldconfig")
+        run_command_live(["make", f"-j{multiprocessing.cpu_count()}"], cwd=busybox_src_dir, env=env, desc="BusyBox kompilieren")
+        run_command_live(["make", f"CONFIG_PREFIX={self.rootfs_path}", "install"], cwd=busybox_src_dir, env=env, desc="BusyBox installieren")
+        self.create_symlinks()
+        success(f"✅ BusyBox {self.version} erfolgreich installiert in {self.rootfs_path}")

@@ -13,10 +13,12 @@ class Paths:
             self.work,
             self.download,
             self.cache,
+            self.pacman_cache,
             self.rootfs,
             self.images,
             self.logs,
             self.tmp,
+            self.build
         ]:
             p.mkdir(parents=True, exist_ok=True)
 
@@ -27,14 +29,14 @@ class Paths:
     @property
     def work(self) -> Path:
         return self.root / "work"
+    
+    @property
+    def build(self) -> Path:
+        return self.root / "build"
 
     @property
     def download(self) -> Path:
         return self.work / "download"
-
-    @property
-    def cache(self) -> Path:
-        return self.work / "cache"
 
     @property
     def rootfs(self) -> Path:
@@ -51,3 +53,11 @@ class Paths:
     @property
     def tmp(self) -> Path:
         return self.work / "tmp"
+
+    @property
+    def cache(self) -> Path:
+        return self.work / "cache"
+    
+    @property
+    def pacman_cache(self) -> Path:
+        return self.rootfs / "var/cache/pacman"

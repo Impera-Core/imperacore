@@ -12,7 +12,7 @@ from rich.progress import (
     TransferSpeedColumn,
 )
 from rich.console import Console
-from module.logger import success, info, warning, error
+from utils.logger import *
 
 console = Console()
 

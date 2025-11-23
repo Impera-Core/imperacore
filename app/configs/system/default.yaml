@@ -1,0 +1,16 @@
+name: "Impera Core - Linux Distribution Buildsystem"
+version: "0.0.1"
+codename: "alpha"
+architectures: [ { x86_64: True }, { x86_64-efi: False }, { arm64: False } ]
+workenvironment:
+- paths:
+    development_enviroment: "/mnt/nexuzfs/"
+    work_dir: "/mnt/nexuzfs/work"
+    build_dir: "/mnt/nexuzfs/build"
+    download_dir: "/mnt/nexuzfs/work/download"
+    rootfs_dir: "/mnt/nexuzfs/work/rootfs"
+    cache_dir: "/mnt/nexuzfs/work/cache"
+    pacman_cache: "/mnt/nexuzfs/work/rootfs/var/cache/pacman"
+    image_dir: "/mnt/nexuzfs/work/images"
+    logs_dir: "/mnt/nexuzfs/work/logs"
+    tmp_dir: "/mnt/nexuzfs/work/tmp"

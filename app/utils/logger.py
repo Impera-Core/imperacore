@@ -2,83 +2,98 @@ import logging
 import sys
 import os
 
-# ANSI Farbdefinitionen
+# ANSI Reset
 RESET = "\033[0m"
-NEON_GREEN = "\033[38;2;57;255;20m"
-NEON_CYAN = "\033[38;2;21;255;255m"
-NEON_ORANGE = "\033[38;2;255;140;0m"
-NEON_RED = "\033[38;2;255;50;40m"
 
-# Custom Formatter für Konsole
-class ColorFormatter(logging.Formatter):
-    FORMATS = {
-        logging.DEBUG: f"{NEON_CYAN}[debug]{RESET} | %(message)s",
-        logging.INFO:  f"{NEON_CYAN}[info]{RESET} | %(message)s",
-        logging.WARNING: f"{NEON_ORANGE}[warning]{RESET} | %(message)s",
-        logging.ERROR: f"{NEON_RED}[error]{RESET} | %(message)s",
-        logging.CRITICAL: f"{NEON_RED}[critical]{RESET} | %(message)s",
-        "SUCCESS": f"{NEON_GREEN}[success]{RESET} | %(message)s"
-    }
+# Neonfarben
+NEON_COLORS = {
+    "DEBUG": "\033[38;2;21;255;255m",
+    "INFO": "\033[38;2;57;255;20m",
+    "WARNING": "\033[38;2;255;140;0m",
+    "ERROR": "\033[38;2;255;50;40m",
+    "CRITICAL": "\033[38;2;255;0;0m",
+    "SUCCESS": "\033[38;2;0;255;100m",
+    "CREATE": "\033[38;2;0;200;255m",
+    "INSTALL": "\033[38;2;180;0;255m",
+    "ADDED": "\033[38;2;0;255;255m",
+    "COPY": "\033[38;2;255;255;0m",
+    "REMOVE": "\033[38;2;255;0;50m",
+    "PATCH": "\033[38;2;255;140;0m",
+    "LOADING": "\033[38;2;255;0;255m",
+    "BUILD": "\033[38;2;0;255;200m",
+    "FLASH": "\033[38;2;200;255;0m",
+    "TEST": "\033[38;2;80;0;255m",
+    "RUNNING": "\033[38;2;0;255;200m"
+}
 
+ICONS = {
+    "DEBUG": "🐞",
+    "INFO": "ℹ️",
+    "WARNING": "⚠️",
+    "ERROR": "❌",
+    "CRITICAL": "💀",
+    "SUCCESS": "✔️",
+    "CREATE": "🛠️",
+    "INSTALL": "📥",
+    "ADDED": "➕",
+    "COPY": "📄",
+    "REMOVE": "🗑️",
+    "PATCH": "🩹",
+    "LOADING": "⏳",
+    "BUILD": "🏗️",
+    "FLASH": "⚡",
+    "TEST": "🧪",
+    "RUNNING": "⏱️"
+}
+
+# Formatter
+class IconFormatter(logging.Formatter):
     def format(self, record):
-        fmt = self.FORMATS.get(record.levelno, self.FORMATS.get(record.levelname, self.FORMATS[logging.INFO]))
-        if getattr(record, "success", False):
-            fmt = self.FORMATS["SUCCESS"]
-        formatter = logging.Formatter(fmt)
-        return formatter.format(record)
+        level = record.levelname
+        icon = ICONS.get(level, "ℹ️")
+        color = NEON_COLORS.get(level, NEON_COLORS["INFO"])
+        return f"{color}{icon} [{level.lower()}]{RESET} | {record.getMessage()}"
 
-# Formatter ohne Farben für Datei
-class PlainFormatter(logging.Formatter):
-    FORMATS = {
-        logging.DEBUG: "[debug] | %(message)s",
-        logging.INFO: "[info] | %(message)s",
-        logging.WARNING: "[warning] | %(message)s",
-        logging.ERROR: "[error] | %(message)s",
-        logging.CRITICAL: "[critical] | %(message)s",
-        "SUCCESS": "[success] | %(message)s"
-    }
-
-    def format(self, record):
-        fmt = self.FORMATS.get(record.levelno, self.FORMATS.get(record.levelname, self.FORMATS[logging.INFO]))
-        if getattr(record, "success", False):
-            fmt = self.FORMATS["SUCCESS"]
-        formatter = logging.Formatter(fmt)
-        return formatter.format(record)
-
-# Basis-Logger einrichten
+# Logger Setup
 logger = logging.getLogger("nexuzcore")
 logger.setLevel(logging.DEBUG)
 
-# Konsolen-Handler (bunt)
 console_handler = logging.StreamHandler(sys.stdout)
-console_handler.setFormatter(ColorFormatter())
+console_handler.setFormatter(IconFormatter())
 
-# Datei-Handler (ohne Farben)
-logfile_path = os.path.join(os.getcwd(), "nexuzcore-build.log")
-file_handler = logging.FileHandler(logfile_path, encoding='utf-8')
-file_handler.setFormatter(PlainFormatter())
+file_handler = logging.FileHandler(os.path.join(os.getcwd(), "nexuzcore-build.log"), encoding='utf-8')
+file_handler.setFormatter(logging.Formatter("[%(levelname)s] | %(message)s"))
 
 logger.handlers = [console_handler, file_handler]
 logger.propagate = False
 
-# Erfolg als eigenes Level
+# Eigene Levels
 SUCCESS_LEVEL = 25
+CREATE_LEVEL = 26
+RUNNING_LEVEL = 27
+
 logging.addLevelName(SUCCESS_LEVEL, "SUCCESS")
+logging.addLevelName(CREATE_LEVEL, "CREATE")
+logging.addLevelName(RUNNING_LEVEL, "RUNNING")
 
-def success(msg, *args, **kwargs):
-    logger.log(SUCCESS_LEVEL, msg, *args, extra={"success": True}, **kwargs)
+# Helper Funktionen
+def debug(msg, *args, **kwargs): logger.debug(msg, *args, **kwargs)
+def info(msg, *args, **kwargs): logger.info(msg, *args, **kwargs)
+def warning(msg, *args, **kwargs): logger.warning(msg, *args, **kwargs)
+def error(msg, *args, **kwargs): logger.error(msg, *args, **kwargs)
+def critical(msg, *args, **kwargs): logger.critical(msg, *args, **kwargs)
+def success(msg, *args, **kwargs): logger.log(SUCCESS_LEVEL, msg, *args, **kwargs)
+def create(msg, *args, **kwargs): logger.log(CREATE_LEVEL, f"🛠️ {msg}", *args, **kwargs)
+def running(msg, *args, **kwargs): logger.log(RUNNING_LEVEL, f"⏱️ {msg}", *args, **kwargs)
+def install(msg, *args, **kwargs): logger.log(SUCCESS_LEVEL, f"📥 {msg}", *args, **kwargs)
+def added(msg, *args, **kwargs): logger.log(SUCCESS_LEVEL, f"➕ {msg}", *args, **kwargs)
+def copy(msg, *args, **kwargs): logger.log(SUCCESS_LEVEL, f"📄 {msg}", *args, **kwargs)
+def remove(msg, *args, **kwargs): logger.log(SUCCESS_LEVEL, f"🗑️ {msg}", *args, **kwargs)
+def patch(msg, *args, **kwargs): logger.log(SUCCESS_LEVEL, f"🩹 {msg}", *args, **kwargs)
+def loading(msg, *args, **kwargs): logger.log(SUCCESS_LEVEL, f"⏳ {msg}", *args, **kwargs)
+def build(msg, *args, **kwargs): logger.log(SUCCESS_LEVEL, f"🏗️ {msg}", *args, **kwargs)
+def flash(msg, *args, **kwargs): logger.log(SUCCESS_LEVEL, f"⚡ {msg}", *args, **kwargs)
+def test(msg, *args, **kwargs): logger.log(SUCCESS_LEVEL, f"🧪 {msg}", *args, **kwargs)
 
-def info(msg, *args, **kwargs):
-    logger.info(msg, *args, **kwargs)
-
-def warning(msg, *args, **kwargs):
-    logger.warning(msg, *args, **kwargs)
-
-def error(msg, *args, **kwargs):
-    logger.error(msg, *args, **kwargs)
-
-def debug(msg, *args, **kwargs):
-    logger.debug(msg, *args, **kwargs)
-
-# Für direkten Zugriff
+# Direkter Zugriff
 log = logger
